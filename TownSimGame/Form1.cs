@@ -22,18 +22,19 @@ namespace TownSimGame
         private void Form1_Load(object sender, EventArgs e)
         {
             //WindowState = FormWindowState.Maximized;
-            gameManager = new GameManager();
+            gameManager = new GameManager(gamePanel.Size);
         }
 
         private void gamePanel_Click(object sender, EventArgs e)
         {
             Point point = gamePanel.PointToClient(Cursor.Position);
             gameManager.handleClick(point);
-            gamePanel.CreateGraphics().DrawLine(new Pen(Color.Black), Point.Empty, point);
+            //gamePanel.CreateGraphics().DrawLine(new Pen(Color.Black), Point.Empty, point);
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            gameManager.doTick();
             using (Bitmap frame = new Bitmap(gamePanel.Width, gamePanel.Height))
             {
                 using (Graphics gr = Graphics.FromImage(frame))
