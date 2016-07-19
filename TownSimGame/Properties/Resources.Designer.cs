@@ -63,6 +63,26 @@ namespace TownSimGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Building_H32 {
+            get {
+                object obj = ResourceManager.GetObject("Building_H32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Building32 {
+            get {
+                object obj = ResourceManager.GetObject("Building32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Dirt32 {
             get {
                 object obj = ResourceManager.GetObject("Dirt32", resourceCulture);

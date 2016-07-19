@@ -7,10 +7,18 @@ using System.Threading.Tasks;
 
 namespace TownSimGame
 {
-    abstract class Entity : IComparable<Entity>
+    public enum EntityType
+    {
+        None,
+        BuildingBase,
+        Building,
+        Person
+    }
+
+    public abstract class Entity : IComparable<Entity>
     {
 
-        Location location;
+        public Location location { get; }
 
         public Entity(Location location)
         {
@@ -21,17 +29,12 @@ namespace TownSimGame
         {
             if(entity.location.y > location.y)
             {
-                return 1;
+                return -1;
             }else if(entity.location.y < location.y)
             {
-                return -1;
+                return 1;
             }
             return 0;
-        }
-
-        public Location getLocation()
-        {
-            return location;
         }
 
         public abstract void draw(Graphics gr);

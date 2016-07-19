@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TownSimGame
 {
-    class Location
+    public class Location
     {
 
         public int x { get; set; }

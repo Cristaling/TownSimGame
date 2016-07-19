@@ -6,27 +6,17 @@ using System.Threading.Tasks;
 
 namespace TownSimGame
 {
-    class Town
+    public class Town
     {
 
-        List<Entity> entities = new List<Entity>();
-        List<Tile> tiles = new List<Tile>();
+        public List<Entity> entities { get; } = new List<Entity>();
+        public List<Tile> tiles { get; } = new List<Tile>();
 
         int gridSize;
 
         public Town(int gridSize)
         {
             this.gridSize = gridSize;
-        }
-
-        public List<Tile> getTiles()
-        {
-            return tiles;
-        }
-
-        public List<Entity> getEntities()
-        {
-            return entities;
         }
 
         public void sortEntityList()
@@ -50,7 +40,7 @@ namespace TownSimGame
         {
             foreach (Entity entity in entities)
             {
-                if (entity.getLocation() == loc)
+                if (entity.location == loc)
                 {
                     return entity;
                 }

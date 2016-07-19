@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace TownSimGame
 {
-    class GameManager
+    public class GameManager
     {
 
         Town town;
-        Size size;
+        Panel board;
         ImageProvider imageProvider;
 
         int gridSize = 32;
 
-        public GameManager(Size size)
+        public GameManager(Panel board)
         {
-            this.size = size;
+            this.board = board;
             imageProvider = new ImageProvider();
             town = new Town(gridSize);
         }
@@ -27,34 +28,55 @@ namespace TownSimGame
         {
             Location location = new Location(point.X, point.Y);
             Location loc = town.getLocationOnGrid(location);
-            Tile tile = town.getTileAt(loc);
-            Entity entity = town.getEntityAt(loc);
-
+            while (true) {
+                Tile tile = town.getTileAt(loc);
+                Entity entity = town.getEntityAt(loc);
+                ClickMenu menu = new ClickMenu(town, loc, tile, entity);
+                menu.Location = board.PointToScreen(point);
+                if (Screen.AllScreens[1].Bounds.Right < menu.Location.X + menu.Width)
+                {
+                    menu.Location = new Point(menu.Location.X - menu.Width, menu.Location.Y);
+                }
+                if (Screen.AllScreens[1].Bounds.Bottom < menu.Location.Y + menu.Height)
+                {
+                    menu.Location = new Point(menu.Location.X, menu.Location.Y - menu.Height);
+                }
+                menu.ShowDialog();
+                if(menu.DialogResult == DialogResult.Cancel){
+                    break;
+                }
+            }
         }
 
         public void doTick()
         {
-
+            //TODO run Tick
             town.sortEntityList();
         }
 
-        public void drawGame(Graphics board)
+        public void drawGame(Graphics boardGr)
         {
-            for(int i = 0; i < size.Width; i += gridSize)
+            for (int i = 0; i < board.Width; i += gridSize)
             {
-                for(int j = 0; j < size.Width; j += gridSize)
+                for (int j = 0; j < board.Width; j += gridSize)
                 {
-                    board.DrawImage(ImageProvider.getTileTexture(TileType.None), j, i);
-                    board.DrawRectangle(new Pen(Color.Black), new Rectangle(j, i, gridSize, gridSize));
+                    boardGr.DrawImage(ImageProvider.getTileTexture(TileType.None), new Rectangle(j, i, gridSize, gridSize));
                 }
             }
-            foreach (Tile tile in town.getTiles())
+            foreach (Tile tile in town.tiles)
             {
-                board.DrawImage(ImageProvider.getTileTexture(tile.type), tile.getLocation().x, tile.getLocation().y);
+                boardGr.DrawImage(ImageProvider.getTileTexture(tile.type), new Rectangle(tile.getLocation().x, tile.getLocation().y, gridSize, gridSize));
             }
-            foreach(Entity entity in town.getEntities())
+            for (int i = 0; i < board.Width; i += gridSize)
             {
-                entity.draw(board);
+                for (int j = 0; j < board.Width; j += gridSize)
+                {
+                    boardGr.DrawRectangle(new Pen(Color.Black), new Rectangle(j, i, gridSize, gridSize));
+                }
+            }
+            foreach (Entity entity in town.entities)
+            {
+                entity.draw(boardGr);
             }
         }
 

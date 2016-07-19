@@ -22,7 +22,8 @@ namespace TownSimGame
         private void Form1_Load(object sender, EventArgs e)
         {
             //WindowState = FormWindowState.Maximized;
-            gameManager = new GameManager(gamePanel.Size);
+            ImageProvider.loadTextures();
+            gameManager = new GameManager(gamePanel);
         }
 
         private void gamePanel_Click(object sender, EventArgs e)
@@ -47,5 +48,6 @@ namespace TownSimGame
                 }
             }
         }
+        
     }
 }

@@ -14,7 +14,7 @@ namespace TownSimGame
         Road
     }
 
-    class Tile
+    public class Tile
     {
 
         Location location;
