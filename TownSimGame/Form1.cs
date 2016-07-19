@@ -34,7 +34,17 @@ namespace TownSimGame
 
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-
+            using (Bitmap frame = new Bitmap(gamePanel.Width, gamePanel.Height))
+            {
+                using (Graphics gr = Graphics.FromImage(frame))
+                {
+                    gameManager.drawGame(gr);
+                }
+                using (Graphics gr = gamePanel.CreateGraphics())
+                {
+                    gr.DrawImage(frame, Point.Empty);
+                }
+            }
         }
     }
 }

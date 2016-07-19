@@ -20,5 +20,10 @@ namespace TownSimGame
 
         }
 
+        public void drawGame(Graphics board)
+        {
+
+        }
+
     }
 }
